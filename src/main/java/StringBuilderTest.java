@@ -16,6 +16,12 @@ public final class StringBuilderTest implements java.io.Serializable, CharSequen
         newStringBuilderTest(str);
     }
 
+    public StringBuilderTest(Object obj) {
+        value = new char[0];
+        stack = new Stack<StringBuilderTest>();
+        newStringBuilderTest(String.valueOf(obj));
+    }
+
     public StringBuilderTest(StringBuilderTest sbt) {
         value = new char[0];
         stack = new Stack<StringBuilderTest>();
@@ -23,19 +29,13 @@ public final class StringBuilderTest implements java.io.Serializable, CharSequen
     }
 
     public void newStringBuilderTest(String str) {
-        try {
-            if (str == null) {
-                throw new NullPointerException();
-            }
-            int length = str.toCharArray().length;
-            ensureCapacityInternal(count + length);
-            str.getChars(0, length, value, count);
-            count += length;
-        } catch (Exception e) {
-            stack.pop();
-            System.err.println(e.getMessage());
+        if (str == null) {
+            throw new NullPointerException();
         }
-
+        int length = str.toCharArray().length;
+        ensureCapacityInternal(count + length);
+        str.getChars(0, length, value, count);
+        count += length;
     }
 
     public int compareTo(StringBuilderTest another) {
@@ -144,7 +144,7 @@ public final class StringBuilderTest implements java.io.Serializable, CharSequen
             ensureCapacityInternal(count + len);
             if (offset > 0) {
                 System.arraycopy(value, 0, value, 0, offset);
-                System.arraycopy(value, offset, value, offset + len, count - offset);
+                shift(offset, len);
             } else {
                 System.arraycopy(value, 0, value, offset + len, count);
             }
