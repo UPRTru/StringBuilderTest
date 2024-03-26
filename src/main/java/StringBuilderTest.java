@@ -142,7 +142,7 @@ public final class StringBuilderTest implements java.io.Serializable, CharSequen
             stack.add(new StringBuilderTest(toString()));
             int len = str.length();
             ensureCapacityInternal(count + len);
-            if (offset > 0 && offset != count) {
+            if (offset > 0) {
                 System.arraycopy(value, 0, value, 0, offset);
                 System.arraycopy(value, offset, value, offset + len, count - offset);
             } else {

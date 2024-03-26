@@ -20,6 +20,7 @@ public class Main {
 
         System.out.println(sbt2.replace(0, 3, "aaa").toString());
 
+        System.out.println(sbt2.insert(5, 333).toString());
         System.out.println(sbt2.insert(0, "nnn").toString());
         System.out.println(sbt2.insert(2, 333).toString());
 
